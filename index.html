@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon_io (13)/favicon.ico" type="image/x-icon">
+  <title>Pergunta</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background-color: #ffe6f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #d6336c;
+    }
+
+    .buttons {
+      position: relative;
+      width: 300px;
+      height: 200px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #yesBtn {
+      background-color: #ff69b4;
+      color: white;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 20px;
+    }
+
+    #noBtn {
+      background-color: #ff4d4d;
+      color: white;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .buttons {
+        width: 90vw;
+        height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Quer namorar comigo? 💘</h1>
+  <div class="buttons">
+    <button id="yesBtn">Sim!</button>
+    <button id="noBtn">Não</button>
+  </div>
+
+  <audio id="loveSong" src="musica/ILLIT - ‘Magnetic' Dance Cover ｜ Ellen and Brian.mp3"></audio>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const buttonsContainer = document.querySelector(".buttons");
+    const loveSong = document.getElementById("loveSong");
+  
+    noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("touchstart", moveButton); // pra mobile
+  
+    function moveButton() {
+      const containerRect = buttonsContainer.getBoundingClientRect();
+      const maxX = containerRect.width - noBtn.offsetWidth;
+      const maxY = containerRect.height - noBtn.offsetHeight;
+  
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+  
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+    }
+  
+    document.getElementById("yesBtn").addEventListener("click", () => {
+      alert("EBAAAA! 😍💖");
+      loveSong.play();
+    });
+  </script>
+  
+</body>
+</html>
