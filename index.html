@@ -76,10 +76,13 @@
 </head>
 <body>
   <h1>Quer namorar comigo? 💘</h1>
+  
   <div class="buttons">
     <button id="yesBtn">Sim!</button>
     <button id="noBtn">Não</button>
   </div>
+
+  <img id="cuteGif" src="tenor.gif" alt="Gif fofo" style="display: none; max-width: 300px; margin-top: 20px;" />
 
   <audio id="loveSong" src="musica/ILLIT - ‘Magnetic' Dance Cover ｜ Ellen and Brian.mp3"></audio>
 
@@ -106,6 +109,9 @@
     document.getElementById("yesBtn").addEventListener("click", () => {
       alert("EBAAAA! 😍💖");
       loveSong.play();
+
+      const gif = document.getElementById("cuteGif");
+      gif.style.display = "block";
     });
   </script>
   
