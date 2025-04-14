@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="favicon_io (13)/favicon.ico" type="image/x-icon">
-  <title>Pergunta</title>
+  <title>Quer namorar comigo?</title>
   <style>
     * {
       box-sizing: border-box;
@@ -22,18 +21,27 @@
       height: 100vh;
       text-align: center;
       padding: 20px;
+      overflow: hidden;
+      position: relative;
     }
 
-    h1 {
+    h1, #finalMessage {
       font-size: 2rem;
-      margin-bottom: 2rem;
       color: #d6336c;
+      margin-bottom: 2rem;
+      transition: opacity 1s ease;
+    }
+
+    #finalMessage {
+      display: none;
+      opacity: 0;
     }
 
     .buttons {
       position: relative;
       width: 300px;
       height: 200px;
+      transition: opacity 1s ease;
     }
 
     button {
@@ -62,8 +70,25 @@
       left: 50px;
     }
 
+    #cuteGif {
+      display: none;
+      max-width: 300px;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 1.5s ease, margin-top 1s ease;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .fade-in {
+      display: block !important;
+      opacity: 1 !important;
+    }
+
     @media (max-width: 500px) {
-      h1 {
+      h1, #finalMessage {
         font-size: 1.5rem;
       }
 
@@ -71,18 +96,45 @@
         width: 90vw;
         height: 60vh;
       }
+
+      #cuteGif {
+        max-width: 80vw;
+      }
+    }
+
+    /* Corações flutuando */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('https://emojicdn.elk.sh/❤️') no-repeat center/contain;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Quer namorar comigo? 💘</h1>
-  
-  <div class="buttons">
+  <h1 id="mainTitle">Quer namorar comigo? 💘</h1>
+
+  <div class="buttons" id="buttonArea">
     <button id="yesBtn">Sim!</button>
     <button id="noBtn">Não</button>
   </div>
 
-  <img id="cuteGif" src="tenor.gif" alt="Gif fofo" style="display: none; max-width: 300px; margin-top: 20px;" />
+  <h1 id="finalMessage">AGORA VOCÊ É MINHA NAMORADA 💖</h1>
+
+  <img id="cuteGif" src="tenor.gif" alt="Gif fofo" />
 
   <audio id="loveSong" src="musica/ILLIT - ‘Magnetic' Dance Cover ｜ Ellen and Brian.mp3"></audio>
 
@@ -90,30 +142,57 @@
     const noBtn = document.getElementById("noBtn");
     const buttonsContainer = document.querySelector(".buttons");
     const loveSong = document.getElementById("loveSong");
-  
+    const finalMessage = document.getElementById("finalMessage");
+    const gif = document.getElementById("cuteGif");
+    const mainTitle = document.getElementById("mainTitle");
+
     noBtn.addEventListener("mouseenter", moveButton);
-    noBtn.addEventListener("touchstart", moveButton); // pra mobile
-  
+    noBtn.addEventListener("touchstart", moveButton);
+
     function moveButton() {
       const containerRect = buttonsContainer.getBoundingClientRect();
       const maxX = containerRect.width - noBtn.offsetWidth;
       const maxY = containerRect.height - noBtn.offsetHeight;
-  
+
       const newX = Math.random() * maxX;
       const newY = Math.random() * maxY;
-  
+
       noBtn.style.left = `${newX}px`;
       noBtn.style.top = `${newY}px`;
     }
-  
+
     document.getElementById("yesBtn").addEventListener("click", () => {
-      alert("EBAAAA! 😍💖");
       loveSong.play();
 
-      const gif = document.getElementById("cuteGif");
-      gif.style.display = "block";
+      // Transições
+      mainTitle.classList.add("fade-out");
+      buttonsContainer.classList.add("fade-out");
+
+      setTimeout(() => {
+        mainTitle.style.display = "none";
+        buttonsContainer.style.display = "none";
+
+        finalMessage.classList.add("fade-in");
+        gif.classList.add("fade-in");
+        gif.style.marginTop = "0";
+
+        // Começar corações
+        startHearts();
+      }, 1000);
     });
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }, 300);
+    }
   </script>
-  
 </body>
 </html>
